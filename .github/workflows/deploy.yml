@@ -24,8 +24,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t my-app:$GITHUB_SHA .
+          docker build -e CLOUD_TOKEN=${{ secrets.CLOUD_TOKEN }} -t my-app:$GITHUB_SHA .
 
       - name: Run tests
         run: |
-          docker run --rm my-app:$GITHUB_SHA pytest 
+          docker run -e CLOUD_TOKEN=${{ secrets.CLOUD_TOKEN }} --rm my-app:$GITHUB_SHA pytest 
