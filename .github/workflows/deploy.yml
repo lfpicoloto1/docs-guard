@@ -4,13 +4,11 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -28,12 +26,6 @@ jobs:
         run: |
           docker build -t my-app:$GITHUB_SHA .
 
-      - name: Create pytest.ini
-        run: |
-          echo "[pytest]" > pytest.ini
-          echo "asyncio_mode = auto" >> pytest.ini
-          echo "asyncio_default_fixture_loop_scope = function" >> pytest.ini
-
       - name: Run tests
         run: |
-          docker run --rm -v ${{ github.workspace }}/pytest.ini:/app/pytest.ini my-app:$GITHUB_SHA pytest -v
+          docker run --rm my-app:$GITHUB_SHA pytest 
