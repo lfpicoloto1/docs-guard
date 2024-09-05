@@ -13,7 +13,7 @@ terraform {
 
 resource "mgc_kubernetes_cluster" "cluster" {
   provider = mgc.sudeste
-  name                 = "Docs Projects"
+  name                 = "DocsProjects"
   version              = "v1.30.2"
   description          = "InternalProjects"
 }
