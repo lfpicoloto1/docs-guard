@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'terraform/**'
+      - '.github/workflows/infrastructure.yml'
 
 jobs:
   build:
