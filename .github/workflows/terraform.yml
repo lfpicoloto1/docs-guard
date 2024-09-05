@@ -23,12 +23,12 @@ jobs:
       working-directory: terraform
 
     - name: Terraform Plan
-      run: terraform plan
+      run: terraform plan -no-color
       working-directory: terraform
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main'
-      run: terraform apply -auto-approve
+      run: terraform apply -auto-approve -no-color
       working-directory: terraform
       env:
         MGC_API_KEY: ${{ secrets.MAGALU_API_KEY }}
