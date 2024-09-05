@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: prod
     
     env:
       CLOUD_TOKEN: ${{ secrets.CLOUD_TOKEN }}
