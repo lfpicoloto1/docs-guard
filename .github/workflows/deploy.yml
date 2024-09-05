@@ -47,3 +47,17 @@ jobs:
         run: |
           docker tag my-app:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
           docker push ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
+      
+      - name: Install kubectl
+        run: |
+          sudo curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+          sudo chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
+
+      - name: Get kubeconfig from Terraform
+        id: kubeconfig
+        run: echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
+
+      - name: Apply Kubernetes Deployment
+        run: |
+          kubectl apply -f deploy.yml --kubeconfig=kubeconfig.yaml
