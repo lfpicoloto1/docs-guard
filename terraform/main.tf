@@ -13,14 +13,14 @@ terraform {
 
 resource "mgc_kubernetes_cluster" "cluster" {
   provider = mgc.sudeste
-  name                 = "DocsProjects"
+  name                 = "docs-projects"
   version              = "v1.30.2"
   description          = "InternalProjects"
 }
 
 resource "mgc_kubernetes_nodepool" "nodepool" {
   provider = mgc.sudeste
-  name         = "DocsGuard"
+  name         = "docs-guard"
   cluster_id   = mgc_kubernetes_cluster.cluster.id  # Aqui corrige para cluster.id
   flavor_name  = "cloud-k8s.gp1.small"
   replicas     = 1
