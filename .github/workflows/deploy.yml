@@ -31,7 +31,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t my-app:${{ github.sha }} .
+          sudo docker build -t my-app:${{ github.sha }} .
       
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -41,17 +41,17 @@ jobs:
       
       - name: Tag Docker image as latest
         run: |
-          docker tag my-app:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/my-app:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+          sudo docker tag my-app:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+          sudo docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
 
       - name: Run tests
         run: |
-          docker run -e CLOUD_TOKEN=${{ secrets.CLOUD_TOKEN }} --rm my-app:${{ github.sha }} pytest
+          sudo docker run -e CLOUD_TOKEN=${{ secrets.CLOUD_TOKEN }} --rm my-app:${{ github.sha }} pytest
         
       - name: Push Docker image
         run: |
-          docker tag my-app:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
+          sudo docker tag my-app:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
+          sudo docker push ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
       
       - name: Install kubectl
         run: |
